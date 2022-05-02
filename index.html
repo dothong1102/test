@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row" style="display: flex;">
+            <div class="col-md-4">
+                <textarea name="input" id="input" class="form-control" rows="20" onchange=""></textarea>
+            </div>
+            <div class="col-md-1 text-center mt-5">
+                <button type="button" class="btn btn-info" onclick="calc()">Tính</button>
+            </div>
+            <div class="col-md-6" style="display: flex; justify-content: center;">
+                <textarea name="output3" id="output3" class="form-control" rows="20"></textarea>
+                <textarea name="output1" id="output1" class="form-control" rows="20"></textarea>
+                <textarea name="output2" id="output2" class="form-control" rows="20"></textarea>
+            </div>
+         
+        </div>
+    </div>
+    <script>
+        function calc() {
+            let input = document.getElementById('input').value;
+            let arr_input = input.split('\n');
+    
+            let index = 0;
+            let result = [];
+            let current = 0;
+            let arr = [];
+            for(let val of arr_input) {
+                if(val) {
+                    if(current == 0) {
+                    arr = [val*1, val*1, 1];
+                    result[index] = arr;
+    
+                    current = val * 1;
+                } else {
+                    if((val * 1 - 1) == current) {
+                        result[index][1] = val*1;
+                        result[index][2]++;
+                        current = val * 1;
+                    } else {
+                        index++;
+                        arr = [val*1, val*1, 1];
+                        result[index] = arr;
+                        current = val * 1;
+                    }
+                }
+                }
+            }
+            console.log(result);
+            
+            let arr1 = [];
+            let arr2 = [];
+            let arr3 = [];
+            for(let val of result) {
+                arr1.push(val[0].toString());
+                arr2.push(val[1].toString());
+                arr3.push(val[2].toString());
+            }
+            document.getElementById('output1').value = arr1.join('\n');
+            document.getElementById('output2').value = arr2.join('\n');
+            document.getElementById('output3').value = arr3.join('\n');
+        }
+    </script>
+</body>
+</html>
